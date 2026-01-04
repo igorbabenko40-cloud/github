@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>GIGACUDE | Minecraft сервер</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body { margin:0; font-family:Arial,sans-serif; background:#0f172a; color:#e5e7eb; overflow-x:hidden; }
+    header { background:linear-gradient(90deg,#22c55e,#16a34a); padding:40px; text-align:center; animation:fadeDown 1s; }
+    section { padding:40px 20px; max-width:1100px; margin:auto; }
+    h1,h2 { margin-top:0 }
+    .card { background:#020617; border-radius:16px; padding:25px; margin-bottom:25px; box-shadow:0 10px 30px rgba(0,0,0,.4); opacity:0; transform:translateY(30px); transition:.6s ease; cursor:pointer; }
+    .card.show { opacity:1; transform:translateY(0); }
+    .btn { display:inline-block; padding:12px 20px; background:#22c55e; color:#020617; border-radius:12px; text-decoration:none; font-weight:bold; margin:10px 10px 0 0; transition:.3s; }
+    .btn:hover { transform:scale(1.05); background:#16a34a; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:20px; }
+    .shop-item { border:1px solid #22c55e; border-radius:12px; padding:20px; text-align:center; transition:.3s; }
+    .shop-item:hover { transform:translateY(-5px); box-shadow:0 0 20px #22c55e55; }
+    .shop-item.top { border:2px solid gold; box-shadow:0 0 25px gold; }
+    .screens { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:15px; }
+    .screens div { height:180px; border-radius:12px; background:linear-gradient(135deg,#1e293b,#020617); display:flex; align-items:center; justify-content:center; color:#9ca3af; font-weight:bold; font-size:16px; transition:.5s; }
+    .screens div:hover { transform:scale(1.05); box-shadow:0 0 20px #22c55e66; }
+    footer { background:#020617; text-align:center; padding:20px; color:#9ca3af; }
+    @keyframes fadeUp { from{opacity:0; transform:translateY(40px)} to{opacity:1; transform:none} }
+    @keyframes fadeDown { from{opacity:0; transform:translateY(-40px)} to{opacity:1; transform:none} }
+    .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); align-items:center; justify-content:center; z-index:999; }
+    .modal-content { background:#020617; padding:30px; border-radius:16px; max-width:400px; width:90%; text-align:center; position:relative; }
+    .modal-content h3 { margin-top:0; }
+    .close { position:absolute; top:10px; right:15px; font-size:24px; cursor:pointer; color:#e5e7eb; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>GIGACUDE</h1>
+  <p>Гриф | PvP | Донат</p>
+</header>
+<section>
+  <div class="card"><h2>Описание сервера</h2><p>GIGACUDE — современный Minecraft сервер с PvP, грифом и честным донатом. Стабильная работа и активное сообщество.</p></div>
+  <div class="card"><h2>IP сервера</h2><p><b>start.gigacube.host</b></p></div>
+  <div class="card"><h2>Онлайн сервера</h2><p id="status">Загрузка...</p></div>
+  <div class="card"><h2>Скачать лаунчер</h2><a class="btn" href="#">Скачать лаунчер</a></div>
+  <div class="card">
+    <h2>Донат (витрина)</h2>
+    <div class="grid" id="donates">
+      <div class="shop-item top" data-name="DRAGON" data-description="Описание DRAGON">DRAGON</div>
+      <div class="shop-item top" data-name="DRACULA" data-description="Описание DRACULA">DRACULA</div>
+      <div class="shop-item" data-name="BUNNY" data-description="Описание BUNNY">BUNNY</div>
+      <div class="shop-item" data-name="TIGER" data-description="Описание TIGER">TIGER</div>
+      <div class="shop-item" data-name="RABBIT" data-description="Описание RABBIT">RABBIT</div>
+      <div class="shop-item" data-name="DHELPER" data-description="Описание DHELPER">DHELPER</div>
+      <div class="shop-item top" data-name="HYDRA" data-description="Описание HYDRA">HYDRA</div>
+      <div class="shop-item" data-name="RAIN" data-description="Описание RAIN">RAIN</div>
+      <div class="shop-item" data-name="LIME" data-description="Описание LIME">LIME</div>
+      <div class="shop-item" data-name="SOLAR" data-description="Описание SOLAR">SOLAR</div>
+      <div class="shop-item" data-name="SACURA" data-description="Описание SACURA">SACURA</div>
+      <div class="shop-item" data-name="COBRA" data-description="Описание COBRA">COBRA</div>
+      <div class="shop-item" data-name="BULL" data-description="Описание BULL">BULL</div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Скриншоты сервера</h2>
+    <div class="screens">
+      <div>Скриншот #1</div>
+      <div>Скриншот #2</div>
+      <div>Скриншот #3</div>
+      <div>Скриншот #4</div>
+      <div>Скриншот #5</div>
+      <div>Скриншот #6</div>
+    </div>
+  </div>
+  <div class="card">
+    <h2>Соцсети</h2>
+    <a class="btn" href="#">Discord</a>
+    <a class="btn" href="#">Telegram</a>
+  </div>
+</section>
+<footer>© 2026 GIGACUDE</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="close" id="close">&times;</span>
+    <h3 id="modal-name">Название</h3>
+    <p id="modal-desc">Описание</p>
+    <p id="modal-price">Цена: будет добавлена</p>
+    <a class="btn" href="#">Купить</a>
+  </div>
+</div>
+
+<script>
+fetch('https://api.mcsrvstat.us/2/start.gigacube.host')
+ .then(r=>r.json())
+ .then(d=>{ document.getElementById('status').innerHTML = d.online ? `🟢 Онлайн: ${d.players.online} / ${d.players.max}` : '🔴 Сервер OFF'; });
+
+const cards = document.querySelectorAll('.card');
+function showCards(){ const trigger = window.innerHeight * 0.85; cards.forEach(c=>{ const top = c.getBoundingClientRect().top; if(top < trigger){ c.classList.add('show'); } }); }
+window.addEventListener('scroll', showCards);
+window.addEventListener('load', showCards);
+
+// Модальное окно донатов
+const modal = document.getElementById('modal');
+const close = document.getElementById('close');
+const modalName = document.getElementById('modal-name');
+const modalDesc = document.getElementById('modal-desc');
+const modalPrice = document.getElementById('modal-price');
+
+document.querySelectorAll('.shop-item').forEach(item=>{
+  item.addEventListener('click', ()=>{
+    modal.style.display = 'flex';
+    modalName.textContent = item.dataset.name;
+    modalDesc.textContent = item.dataset.description;
+    modalPrice.textContent = 'Цена: будет добавлена';
+  });
+});
+close.addEventListener('click', ()=>{ modal.style.display='none'; });
+window.addEventListener('click', e=>{ if(e.target==modal) modal.style.display='none'; });
+</script>
+</body>
+</html>
